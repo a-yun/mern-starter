@@ -7,11 +7,10 @@ const offerSchema = new Schema({
   salary: { type: 'Double', required: true },
   duration: { type: 'Integer', required: true },
   cuid: { type: 'String', required: true },
-  location: { type: 'String', required: true},
-  corporateHousing : { type: 'Boolean', required: true},
-  housingStipend: { type: 'Double', required: true},
-  meals: { type: 'Integer', required: true},
-  //dateAdded: { type: 'Date', default: Date.now, required: true },
+  location: { type: 'String', required: true },
+  corporateHousing: { type: 'Boolean', required: true },
+  housingStipend: { type: 'Double', required: true },
+  meals: { type: 'Integer', required: true },
 });
 
 export default mongoose.model('Offer', offerSchema);
