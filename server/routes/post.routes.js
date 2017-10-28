@@ -1,33 +1,33 @@
 import { Router } from 'express';
-import * as PostController from '../controllers/post.controller';
+import * as OfferController from '../controllers/post.controller';
 const router = new Router();
 
 // Get all offers for a user
-router.route('/offers/:user').get(PostController.getOffers);
+router.route('/offers/:user').get(OfferController.getOffers);
 
 // Get details for one offer by cuid
-router.route('/offers/:user/:cuid').get(PostController.getOffer);
+// router.route('/offers/:user/:cuid').get(OfferController.getOffer);
 
 // Add an offer to a user
-router.route('/offers/:user').post(PostController.addOffer);
+router.route('/offers/:user').post(OfferController.addOffer);
 
 // Edit a user's offer by cuid
-router.route('/offers/:user/:cuid').post(PostController.editOffer);
+router.route('/offers/:user/:cuid').post(OfferController.editOffer);
 
 // Delete an offer by cuid
-router.route('/offers/:user/:cuid').delete(PostController.deleteOffer);
+router.route('/offers/:user/:cuid').delete(OfferController.deleteOffer);
 
 // TODO: remove old endpoints
 // Get all Posts
-router.route('/posts').get(PostController.getPosts);
+router.route('/posts').get(OfferController.getPosts);
 
 // Get one post by cuid
-router.route('/posts/:cuid').get(PostController.getPost);
+router.route('/posts/:cuid').get(OfferController.getPost);
 
 // Add a new Post
-router.route('/posts').post(PostController.addPost);
+router.route('/posts').post(OfferController.addPost);
 
 // Delete a post by cuid
-router.route('/posts/:cuid').delete(PostController.deletePost);
+router.route('/posts/:cuid').delete(OfferController.deletePost);
 
 export default router;
