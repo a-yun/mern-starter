@@ -62,9 +62,9 @@ export default function () {
   Offer.count().exec((err, count) => {
     if (count === 0) {
       console.log("creating dummy offers");
-      const offer1 = new Offer({ username: 'AntonyY', companyName: 'Nonexistent', cuid: 'a', salaryFormat: 'hourly', salary: 10000, duration: 10, location: 'Antartica', corporateHousing: 'false', housingStipend: 10, meals: 21});
+      const offer1 = new Offer({ username: 'AntonyY', companyName: 'Nonexistent', cuid: 'a', salaryFormat: 'hourly', salary: 10000, duration: 10, location: 'Austin', corporateHousing: 'false', housingStipend: 10, meals: 21});
       const offer2 = new Offer({ username: 'DanielW', companyName: 'Microbook', cuid: 'b', salaryFormat: 'weekly', salary: 1, duration: 12, location: 'San Franscisco', corporateHousing: 'false', housingStipend: 400, meals: 5});
-      const offer3 = new Offer({ username: 'AntonyY', companyName: 'OurDearSoftware', cuid: 'c', salaryFormat: 'hourly', salary: 10000, duration: 10, location: 'Pyongyang', corporateHousing: 'false', housingStipend: 10, meals: 21});
+      const offer3 = new Offer({ username: 'AntonyY', companyName: 'OurDearSoftware', cuid: 'c', salaryFormat: 'hourly', salary: 10000, duration: 10, location: 'Seattle', corporateHousing: 'false', housingStipend: 10, meals: 21});
       Offer.create([offer1, offer2, offer3], (error) => {
         if (error) {
           console.log('error creating dummy offers');
