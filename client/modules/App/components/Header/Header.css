@@ -4,7 +4,11 @@
   margin: 10px;
 }
 
-
+.labelStyle {
+  color: white;
+  font-family: "Segoe UI";
+  font-size: 16px;
+}
 @media (max-width: 767px){
   
 }

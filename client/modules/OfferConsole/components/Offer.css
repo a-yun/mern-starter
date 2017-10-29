@@ -3,6 +3,8 @@
     border: 1px solid white;
     background: #333333;
     border-radius: 2px;
+    width: 300px;
+    display: inline-block;
 }
 @media (min-width: 800px) {
     .offer {

@@ -10,7 +10,7 @@ export function Header(props, context) {
   return (
       <div>
         <img className={styles.imageStyle} src={'https://image.ibb.co/diG8Qm/Logo.png'} />
-        A way to equalize and compare offers across the country to find the best offer financially
+        <label className={styles.labelStyle}> Compare your offers to find the best financial choice. </label>
       </div>
   );
 }

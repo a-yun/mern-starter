@@ -53,81 +53,83 @@ class EditConsole extends Component {
                 <div className="title">
                     Offer Details:
                 </div>
-                <label>
-                    Company Name
+                <div>
+                    Company Name:
                     <input className="inputfield" title="companyName" value={this.state.companyName} onChange={this.handleChange}/>
-                </label>
-                <label>
-                    Salary Amount (in dollars)
+                </div>
+                <div>
+                    Salary Amount (dollars):
                     <input className="inputfield" title="salary" value={this.state.salary} onChange={this.handleChange}     />
                     <select className="inputfield" title="salaryFormat" defaultValue={this.state.salaryFormat} onChange={this.handleChange}>
                         <option>Hourly</option>
-                        <option>weekly</option>
-                        <option>biweekly</option>
-                        <option>monthly</option>
+                        <option>Weekly</option>
+                        <option>Biweekly</option>
+                        <option>Monthly</option>
                     </select>
-                </label>
-                <label>
-                    Duration (in weeks)
+                </div>
+                <div>
+                    Duration (weeks):
                     <input className="inputfield" title="duration" value={this.state.duration} onChange={this.handleChange}/>
-                </label>
-                <label>
-                    Location
+                </div>
+                <div>
+                    Location:
                     <select className="inputfield" title="location" defaultValue={this.state.location} onChange={this.handleChange}>
-                        <option>Austin</option>
-                        <option>San Francisco</option>
-                        <option>Seattle</option>
-                        <option>New York</option>
+                        <option>Austin, Texas</option>
+                        <option>San Francisco, California</option>
+                        <option>Seattle, Washington</option>
+                        <option>New York City, New York</option>
                     </select>
-                </label>
-                <label>
-                    Corporate Housing Offered?
+                </div>
+                <div>
+                    Corporate Housing Offered:
                     <select className="inputfield" title="corporateHousing" onChange={this.handleChange}>
                         <option selected={this.state.corporateHousing}>Yes</option>
                         <option selected={!this.state.corporateHousing}>No</option>
                     </select>
-                </label>
-                <label>
-                    Housing Stipend
+                </div>
+                <div>
+                    Housing Stipend:
                     <input className="inputfield" title="housingStipend" value={this.state.housingStipend} onChange={this.handleChange}/>
-                </label>
-                <label>
-                    Number of Meals You are Responsible for Providing Yourself in a Week
+                </div>
+                <div>
+                    Meals to Prepare (weekly):
                     <input className="inputfield" title="meals" value={this.state.meals} onChange={this.handleChange}/>
-                </label>
-                <Button text="Save" handleClick={() => {
-                    const offer = this.state;
-                    offer.cuid = this.props.offer ? this.props.offer.cuid : counter;
-                    counter++;
-                    // send state to offer console
-                    this.props.saveHandler(offer);
-                    // reset state
-                    this.setState({
-                        companyName:  "",
-                        salaryFormat: "hourly",
-                        salary: "",
-                        duration: "",
-                        location: "Austin",
-                        corporateHousing: true,
-                        housingStipend: "",
-                        meals: "",
-                    })
-                }} />
-                <Button text="Cancel" handleClick={() => {
-                    // send state to offer console
-                    this.props.cancelHandler();
-                    // reset state
-                    this.setState({
-                        companyName:  "",
-                        salaryFormat: "hourly",
-                        salary: "",
-                        duration: "",
-                        location: "Austin",
-                        corporateHousing: true,
-                        housingStipend: "",
-                        meals: "",
-                    })
-                }} />
+                </div>
+                <div>
+                    <Button text="Save" handleClick={() => {
+                        const offer = this.state;
+                        offer.cuid = this.props.offer ? this.props.offer.cuid : counter;
+                        counter++;
+                        // send state to offer console
+                        this.props.saveHandler(offer);
+                        // reset state
+                        this.setState({
+                            companyName:  "",
+                            salaryFormat: "hourly",
+                            salary: "",
+                            duration: "",
+                            location: "Austin",
+                            corporateHousing: true,
+                            housingStipend: "",
+                            meals: "",
+                        })
+                    }} />
+                    <Button text="Cancel" handleClick={() => {
+                        // send state to offer console
+                        this.props.cancelHandler();
+                        // reset state
+                        this.setState({
+                            companyName:  "",
+                            salaryFormat: "hourly",
+                            salary: "",
+                            duration: "",
+                            location: "Austin",
+                            corporateHousing: true,
+                            housingStipend: "",
+                            meals: "",
+                        })
+                    }} />
+                </div>
             </div>
         );
     }
