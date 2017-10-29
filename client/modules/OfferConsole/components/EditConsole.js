@@ -17,17 +17,6 @@ class EditConsole extends Component {
             housingStipend: this.props.offer ? this.props.offer.housingStipend : "",
             meals: this.props.offer ? this.props.offer.meals : "",
         };
-        this.isThisFormat = this.isThisFormat.bind(this);
-    }
-
-    /* check which format the salary is in */
-    isThisFormat(props) {
-        return this.props.offer && this.props.offer.salaryFormat === props;
-    }
-
-    /* check which location has been selected */
-    isThisLocation(props) {
-        return this.props.offer && this.props.offer.location == props;
     }
 
     /* update parameters */
@@ -46,11 +35,11 @@ class EditConsole extends Component {
                 <label>
                     Salary Amount (in dollars)
                     <input className="inputfield" value={this.state.salary} />
-                    <select className="inputfield">
-                        <option selected={this.isThisFormat("hourly")}>hourly</option>
-                        <option selected={this.isThisFormat("weekly")}>weekly</option>
-                        <option selected={this.isThisFormat("biweekly")}>biweekly</option>
-                        <option selected={this.isThisFormat("monthly")}>monthly</option>
+                    <select className="inputfield" defaultValue={this.state.salaryFormat}>
+                        <option>hourly</option>
+                        <option>weekly</option>
+                        <option>biweekly</option>
+                        <option>monthly</option>
                     </select>
                 </label>
                 <label>
@@ -59,11 +48,11 @@ class EditConsole extends Component {
                 </label>
                 <label>
                     Location
-                    <select className="inputfield">
-                        <option selected={this.isThisLocation("Austin")}>Austin</option>
-                        <option selected={this.isThisLocation("San Francisco")}>San Francisco</option>
-                        <option selected={this.isThisLocation("Seattle")}>Seattle</option>
-                        <option selected={this.isThisLocation("New York")}>New York</option>
+                    <select className="inputfield" selected={this.state.location}>
+                        <option>Austin</option>
+                        <option>San Francisco</option>
+                        <option>Seattle</option>
+                        <option>New York</option>
                     </select>
                 </label>
                 <label>
