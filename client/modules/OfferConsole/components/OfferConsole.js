@@ -7,41 +7,7 @@ import EditConsole from './EditConsole';
 import Button from './Button';
 import Header from '../../App/components/Header/Header';
 
-const offerDummy = [
-{
-    companyName: "Company 1",
-    salaryFormat: "hourly",
-    salary: 25,
-    duration: 10,
-    location: "San Francisco",
-    corporateHousing: false,
-    housingStipend: 3000,
-    meals: 21,
-    cuid: "0101",
-},
-{
-    companyName: "Company 2",
-    salaryFormat: "monthly",
-    salary: 12000,
-    duration: 11,
-    location: "Austin",
-    corporateHousing: true,
-    housingStipend: 0,
-    meals: 21,
-    cuid: "0102",
-},
-{
-    companyName: "Company 1",
-    salaryFormat: "biweekly",
-    salary: 4000,
-    duration: 12,
-    location: "Seattle",
-    corporateHousing: false,
-    housingStipend: 0,
-    meals: 21,
-    cuid: "0103",
-},
-];
+import callApi from './../../../util/apiCaller.js';
 
 const cities = [
 {
@@ -94,9 +60,9 @@ class OfferConsole extends Component {
             add: false,
             edit: false,
             default: true,
-            offers: this.props.offers == undefined ? offerDummy : this.props.offers,
+            offers: [],
             offer: undefined,
-            username: "dummyUsername",
+            username: "AntonyY",
         }
         this.editHandler = this.editHandler.bind(this);
         this.addHandler = this.addHandler.bind(this);
@@ -106,13 +72,38 @@ class OfferConsole extends Component {
         this.deleteHandler = this.deleteHandler.bind(this);
         this.deleteOffer = this.deleteOffer.bind(this);
         this.cancelHandler = this.cancelHandler.bind(this);
+        this.calculateCost = this.calculateCost.bind(this);
+        this.scoreOffers = this.scoreOffers.bind(this);
     }
 
     componentDidMount() {
         // get the list of offers
+        const endpoint = "user/AntonyY";
+        callApi({endpoint, method: "get", body: undefined})
+        .then((response) => (
+            // score offers
+            this.scoreOffers(response.offers)
+        ));
+    }
 
-        // update state
-
+    scoreOffers(props) {
+        const offers = props;
+        // give each offer a score
+        for (let idx = 0; idx < offers.length; idx++) {
+            offers[idx].score = this.calculateCost(offers[idx]);
+        }
+        // sort
+        offers.sort((offer1, offer2) => {
+            if (offer1.score > offer2.score) {
+                return -1;
+            } else if (offer1.score < offer2.score) {
+                return 1;
+            } else {
+                return 0;
+            }
+        });
+        // set state
+        this.setState({ offers });
     }
 
     /* function to calculate cost for a given city */
@@ -128,7 +119,7 @@ class OfferConsole extends Component {
         }
         // convert salary to weekly salary
         let salary = offer.salary;
-        switch(salaryFormat) {
+        switch(offer.salaryFormat) {
             case "hourly" :
                 salary = salary * 40;
                 break;
@@ -141,7 +132,7 @@ class OfferConsole extends Component {
                 salary = salary / 2;
         }
         // convert salary to flat rate
-        salary = salary * duration;
+        salary = salary * offer.duration;
         // convert salary to NY money
         salary = ((100 + (100 - city.cli)) / 100) * salary;
         // think about housing
@@ -149,7 +140,7 @@ class OfferConsole extends Component {
         let rent = 0;
         if (!offer.housingStipend) {
             // based on median rent
-            rent = (city.medianRent / 4) * duration;
+            rent = (city.medianRent / 4) * offer.duration;
             rent = ((100 + (100 - city.rent)) / 100) * rent;
             // take housing stipend into account
             let housingHelp = 0;
@@ -234,24 +225,46 @@ class OfferConsole extends Component {
     saveHandler(props) {
         // add or replace offer
         const offer = props;
-        this.replaceOffer(offer);
+        //this.replaceOffer(offer);
+        const endpoint = `new_offer/${this.state.username}`;
         // send call to server with updated offer
         const body = {
             offer,
         };
-        this.setState({
-            add: false,
-            edit: false,
-            default: true,
-            offer: undefined,
-        });
+        callApi({endpoint, method: "post", body})
+        .then(() => (
+            callApi({endpoint: `user/${this.state.username}`, method: "get", body: undefined})
+            .then((response) => (
+                this.scoreOffers(response.offers),
+                this.setState({
+                    add: false,
+                    edit: false,
+                    default: true,
+                    offer: undefined,
+                })
+            ))
+        ));
     }
 
     /* delete button is clicked, calling this method to delete that offer from the array*/
     deleteHandler(props) {
         const cuid = props;
         // send call to server to delete the offer
-        this.deleteOffer(props);
+        //this.deleteOffer(props);
+        const endpoint = `delete_offer/${this.state.username}/${cuid}`;
+        callApi({endpoint, method: "delete", body: undefined})
+        .then(() => (
+            callApi({endpoint: `user/${this.state.username}`, method: "get", body: undefined})
+            .then((response) => (
+                this.scoreOffers(response.offers),
+                this.setState({
+                    add: false,
+                    edit: false,
+                    default: true,
+                    offer: undefined,
+                })
+            ))
+        ));
     }
 
     /* cancel button is clicked, calling this method to stop adding or editing without saving*/
@@ -294,10 +307,10 @@ class OfferConsole extends Component {
                 </div>
                 <div className={styles.right}>
                     
-                    {this.state.offers.map((offer) => (
+                    {this.state.offers ? this.state.offers.map((offer) => (
                         <Offer info={offer} editHandler={this.editHandler} key={offer.cuid} deleteHandler={this.deleteHandler}
                             saveHandler={this.saveHandler} cancelHandler={this.cancelHandler} username={this.state.username}/>
-                    ))}
+                    )) : ''}
                 </div>
             </div>
         );

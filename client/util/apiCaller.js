@@ -5,11 +5,11 @@ export const API_URL = (typeof window === 'undefined' || process.env.NODE_ENV ==
   process.env.BASE_URL || (`http://localhost:${process.env.PORT || Config.port}/api`) :
   '/api';
 
-export default function callApi(endpoint, method = 'get', body) {
-  return fetch(`${API_URL}/${endpoint}`, {
+export default function callApi(props, method = 'get', body) {
+  return fetch(`${API_URL}/${props.endpoint}`, {
     headers: { 'content-type': 'application/json' },
-    method,
-    body: JSON.stringify(body),
+    method: props.method,
+    body: JSON.stringify(props.body),
   })
   .then(response => response.json().then(json => ({ json, response })))
   .then(({ json, response }) => {
