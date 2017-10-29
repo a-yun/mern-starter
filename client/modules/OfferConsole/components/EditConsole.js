@@ -74,10 +74,10 @@ class EditConsole extends Component {
                 <div>
                     Location:
                     <select className="inputfield" title="location" defaultValue={this.state.location} onChange={this.handleChange}>
-                        <option>Austin, Texas</option>
-                        <option>San Francisco, California</option>
-                        <option>Seattle, Washington</option>
-                        <option>New York City, New York</option>
+                        <option>Austin</option>
+                        <option>San Francisco</option>
+                        <option>Seattle</option>
+                        <option>New York</option>
                     </select>
                 </div>
                 <div>
@@ -101,7 +101,9 @@ class EditConsole extends Component {
                         offer.cuid = this.props.offer ? this.props.offer.cuid : counter;
                         counter++;
                         // stop editing
-                        this.props.stopEditing();
+                        if (this.props.stopEditing)  {
+                            this.props.stopEditing();
+                        }
                         // send state to offer console
                         this.props.saveHandler(offer);
                         // reset state
