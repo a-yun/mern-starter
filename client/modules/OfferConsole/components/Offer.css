@@ -1,15 +1,24 @@
 .offer {
-    color: white;
+    color: #333333;
     border: 1px solid white;
-    background: #333333;
+    background: #cccccc;
     border-radius: 2px;
     width: 300px;
     display: inline-block;
     padding: 10px;
+    padding-right:5px;
     margin: 10px;
     margin-right: 0px;
 }
-
+.offerName {
+    font-size: 16px;
+}
+.editButton {
+    float:right;
+}
+.xButton {
+    float:right;
+}
 @media (min-width: 800px) {/*
     .offer {
         padding: 10px;

@@ -100,6 +100,8 @@ class EditConsole extends Component {
                         const offer = this.state;
                         offer.cuid = this.props.offer ? this.props.offer.cuid : counter;
                         counter++;
+                        // stop editing
+                        this.props.stopEditing();
                         // send state to offer console
                         this.props.saveHandler(offer);
                         // reset state
@@ -115,6 +117,8 @@ class EditConsole extends Component {
                         })
                     }} />
                     <Button text="Cancel" handleClick={() => {
+                        // stop editing
+                        this.props.stopEditing();
                         // send state to offer console
                         this.props.cancelHandler();
                         // reset state
