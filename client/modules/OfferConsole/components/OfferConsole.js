@@ -171,10 +171,11 @@ class OfferConsole extends Component {
         } else {
             return (
                 <div className="offers">
+                    <Button text="Add Offer" handleClick={this.addHandler} />
+                    <Button text="Score" />
                     {this.state.offers.map((offer) => (
                         <Offer info={offer} editHandler={this.editHandler} key={offer.cuid} deleteHandler={this.deleteHandler} />
                     ))}
-                    <Button text="Add Offer" handleClick={this.addHandler} />
                 </div>
             );
         }

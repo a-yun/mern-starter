@@ -11,13 +11,9 @@ export function Header(props, context) {
   );
 
   return (
-    <div className={styles.header}>
-      <div className={styles.content}>
-        <h1 className={styles['site-title']}>
-          <Link to="/" ><img src={'https://image.ibb.co/diG8Qm/Logo.png'} /></Link>
-        </h1>
-      </div>
-    </div>
+      <Link to="/" >
+        <img className={styles.imageStyle} src={'https://image.ibb.co/diG8Qm/Logo.png'} />
+        </Link>
   );
 }
 

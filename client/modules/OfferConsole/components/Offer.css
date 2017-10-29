@@ -1,7 +1,7 @@
 .offer {
     color: white;
     border: 1px solid white;
-    background: black;
+    background: #333333;
     border-radius: 2px;
 }
 @media (min-width: 800px) {
