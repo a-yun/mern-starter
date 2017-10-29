@@ -35,6 +35,10 @@ class Offer extends Component {
                     const cuid = this.props.info.cuid;
                     this.props.editHandler(cuid);
                 }} />
+                <Button text="Delete" handleClick={() => {
+                    const cuid = this.props.info.cuid;
+                    this.props.deleteHandler(cuid);
+                }} />
             </div>
         );
     }
@@ -45,4 +49,5 @@ export default Offer;
 Offer.propTypes = {
     info: PropTypes.object.isRequired,
     editHandler: PropTypes.func.isRequired,
+    deleteHandler: PropTypes.func.isRequired,
 };

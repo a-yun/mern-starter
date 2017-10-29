@@ -59,6 +59,8 @@ class OfferConsole extends Component {
         this.saveHandler = this.saveHandler.bind(this);
         this.pickPanel = this.pickPanel.bind(this);
         this.getOffer = this.getOffer.bind(this);
+        this.deleteHandler = this.deleteHandler.bind(this);
+        this.deleteOffer = this.deleteOffer.bind(this);
     }
 
     componentDidMount() {
@@ -82,15 +84,31 @@ class OfferConsole extends Component {
     replaceOffer(props) {
         let found = false;
         const cuid = props.cuid;
-        for (let idx = 0; idx < this.state.offers.length; idx++) {
-            if (this.state.offers[idx].cuid == cuid) {
-                this.state.offers[idx] = props;
+        const offers = this.state.offers;
+        for (let idx = 0; idx < offers.length; idx++) {
+            if (offers[idx].cuid == cuid) {
+                offers[idx] = props;
                 found = true;
             }
         }
         if (!found) {
-            this.state.offers.push(props);
+            offers.push(props);
         }
+        this.setState({ offers });
+    }
+
+    /* delete offer in list of offers */
+    deleteOffer(props) {
+        const cuid = props;
+        const offers = this.state.offers;
+        for (let idx = 0; idx < offers.length; idx++) {
+            if (offers[idx].cuid == cuid) {
+                if (offers[idx].cuid == cuid) {
+                    offers.splice(idx, 1);
+                }
+            }
+        }
+        this.setState({ offers });
     }
 
     /* edit button is clicked, calling this method to edit that offer*/
@@ -108,6 +126,7 @@ class OfferConsole extends Component {
 
     /* add button is clicked, calling this method to add a new offer*/
     addHandler() {
+        // set the state to "adding offer" and set the flags
         this.setState({
             default: false,
             add: true,
@@ -118,9 +137,10 @@ class OfferConsole extends Component {
 
     /* save button is clicked, calling this method to save changes to an existing offer or create new offer*/
     saveHandler(props) {
+        // add or replace offer
         const offer = props;
         this.replaceOffer(offer);
-        // send a request to backend with updated offer
+        // send call to server with updated offer
         const body = {
             offer,
         };
@@ -130,6 +150,13 @@ class OfferConsole extends Component {
             edit: false,
             offer: undefined,
         });
+    }
+
+    /* delete button is clicked, calling this method to delete that offer from the array*/
+    deleteHandler(props) {
+        const cuid = props;
+        // send call to server to delete the offer
+        this.deleteOffer(props);
     }
 
     pickPanel() {
@@ -145,10 +172,9 @@ class OfferConsole extends Component {
             return (
                 <div className="offers">
                     {this.state.offers.map((offer) => (
-                        <Offer info={offer} editHandler={this.editHandler} key={offer.cuid} />
+                        <Offer info={offer} editHandler={this.editHandler} key={offer.cuid} deleteHandler={this.deleteHandler} />
                     ))}
                     <Button text="Add Offer" handleClick={this.addHandler} />
-                    <Button text="Score" />
                 </div>
             );
         }
