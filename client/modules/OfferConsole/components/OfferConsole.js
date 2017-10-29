@@ -12,7 +12,7 @@ const offerDummy = [
     salaryFormat: "hourly",
     salary: 25,
     duration: 10,
-    location: "California",
+    location: "San Francisco",
     corporateHousing: false,
     housingStipend: 3000,
     meals: 21,
@@ -23,7 +23,7 @@ const offerDummy = [
     salaryFormat: "monthly",
     salary: 12000,
     duration: 11,
-    location: "California",
+    location: "Austin",
     corporateHousing: true,
     housingStipend: 0,
     meals: 21,
@@ -70,12 +70,27 @@ class OfferConsole extends Component {
 
     /* find offer in list of offers to be edited */
     getOffer(props) {
-        for (let idx = 0; idx < this.state.offers; idx++) {
+        for (let idx = 0; idx < this.state.offers.length; idx++) {
             if (this.state.offers[idx].cuid == props) {
                 return this.state.offers[idx];
             }
         }
         return undefined;
+    }
+
+    /* replace offer in list of offers or add to end if not existed */
+    replaceOffer(props) {
+        let found = false;
+        const cuid = props.cuid;
+        for (let idx = 0; idx < this.state.offers.length; idx++) {
+            if (this.state.offers[idx].cuid == cuid) {
+                this.state.offers[idx] = props;
+                found = true;
+            }
+        }
+        if (!found) {
+            this.state.offers.push(props);
+        }
     }
 
     /* edit button is clicked, calling this method to edit that offer*/
@@ -104,6 +119,7 @@ class OfferConsole extends Component {
     /* save button is clicked, calling this method to save changes to an existing offer or create new offer*/
     saveHandler(props) {
         const offer = props;
+        this.replaceOffer(offer);
         // send a request to backend with updated offer
         const body = {
             offer,
