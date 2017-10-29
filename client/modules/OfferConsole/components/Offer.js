@@ -32,7 +32,8 @@ class Offer extends Component {
                 <div className="offer-field">Housing Stipend: ${this.props.info.housingStipend}</div>
                 <div className="offer-field">Responsible for: {this.props.info.meals} meals per week</div>
                 <Button text="Edit" handleClick={() => {
-                    this.props.editHandler(this.props.info.cuid);
+                    const cuid = this.props.info.cuid;
+                    this.props.editHandler(cuid);
                 }} />
             </div>
         );
