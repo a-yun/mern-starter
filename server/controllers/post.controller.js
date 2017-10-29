@@ -10,6 +10,10 @@ import sanitizeHtml from 'sanitize-html';
  * @returns void
  */
 export function getPosts(req, res) {
+  return Post.find().exec((err, posts) => {
+      res.json({ posts });
+  });
+
   Post.find().sort('-dateAdded').exec((err, posts) => {
     if (err) {
       res.status(500).send(err);

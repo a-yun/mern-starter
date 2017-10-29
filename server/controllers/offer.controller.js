@@ -11,12 +11,35 @@ import sanitizeHtml from 'sanitize-html';
  * @returns void
  */
 export function getOffers(req, res) {
-  User.findOne({ cuid: req.params.cuid }).find()./* sort('-dateAdded'). */exec((err, offers) => {
+  console.log(req.params.user);
+  User.findOne({ username: req.params.user }).exec((err, user) => {
     if (err) {
-      res.status(500).send(err);
+      return res.status(500).send(err);
     }
-    res.json({ offers });
-  });
+
+    var offers = [ ];
+
+    if (user == null || user.cuids == null) {
+      res.json();
+      return;
+    }
+    for (var i = 0; i < user.cuids.length; i++) {
+      console.log(user.cuids[i]);
+      Offer.findOne({ cuid: user.cuids[i] }).exec((err, offer) => {
+        if (err) {
+          res.status(500).send(err);
+        }
+        console.log('offer: ' + offer);
+        offers.push(offer);
+
+        if (offers.length === user.cuids.length) {
+          console.log('offers: ' + offers);
+          var obj = { 'offers': offers };
+          res.json(obj);
+        }
+      });
+    }
+  }); 
 }
 
 /**
@@ -31,16 +54,39 @@ export function addOffer(req, res) {
   // }
 
   const newOffer = new Offer(req.body.offer);
+  console.log(newOffer);
 
   // Let's sanitize inputs
   newOffer.companyName = sanitizeHtml(newOffer.companyName);
   newOffer.cuid = cuid();
+
   newOffer.save((err, saved) => {
     if (err) {
-      res.status(500).send(err);
+      return res.status(500).send(err);
     }
     res.json({ offer: saved });
   });
+
+  User.findOne({ username : req.params.user }).exec((err, user) => {
+    if (err) {
+      console.log(": (");
+      return res.status(500).send(err);
+    }
+    console.log("user to be modified: " + user.username);   
+    
+    var userCuids = user.cuids;
+    userCuids.push(newOffer.cuid);
+    
+    const newUser = new User({ name: user.name, username: user.username, password: user.password, cuids: userCuids});
+      
+    user.remove();
+
+    User.create([newUser], (error) => {
+      if (error) {
+        console.log('error updating user');
+      }
+    });
+  });  
 }
 
 /**
@@ -49,29 +95,65 @@ export function addOffer(req, res) {
  * @param res
  * @returns void
  */
-/* export function getOffer(req, res) {
-  Post.findOne({ cuid: req.params.cuid }).exec((err, post) => {
+ export function getOffer(req, res) {
+  Offer.findOne({ cuid: req.params.cuid }).exec((err, offer) => {
     if (err) {
       res.status(500).send(err);
     }
-    res.json({ post });
+    res.json({ offer });
   });
-} */
+} 
 
 /**
- * Delete a post
+ * Update an offer
  * @param req
  * @param res
  * @returns void
  */
-export function deletePost(req, res) {
-  Post.findOne({ cuid: req.params.cuid }).exec((err, post) => {
+export function updateOffer(req, res) {
+  deleteOffer(req, res);
+  addOffer(req, res);
+}
+
+/**
+ * Delete an offer
+ * @param req
+ * @param res
+ * @returns void
+ */
+export function deleteOffer(req, res) {
+  Offer.findOne({ cuid: req.params.cuid }).exec((err, offer) => {
     if (err) {
       res.status(500).send(err);
     }
 
-    post.remove(() => {
+    offer.remove(() => {
       res.status(200).end();
     });
   });
+
+  User.findOne({ username : req.params.user }).exec((err, user) => {
+    console.log("user to be modified: " + user.username);   
+    if (err) {
+      return res.status(500).send(err);
+    }
+
+    var userCuids = user.cuids;
+    var cuidRemoveIndex = userCuids.indexOf(req.params.cuid);
+    if (userCuids.length != 1) {
+      userCuids.splice(cuidRemoveIndex, 1);
+    } else {
+      userCuids.pop();
+    }
+    
+    const newUser = new User({ name: user.name, username: user.username, password: user.password, cuids: userCuids});
+      
+    user.remove();
+
+    User.create([newUser], (error) => {
+      if (error) {
+        console.log('error updating user');
+      }
+    });
+  });  
 }
