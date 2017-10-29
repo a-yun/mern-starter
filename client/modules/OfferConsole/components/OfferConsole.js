@@ -269,11 +269,11 @@ class OfferConsole extends Component {
             return (
                 <EditConsole saveHandler={this.saveHandler} cancelHandler={this.cancelHandler} username={this.state.username} />
             )
-        } else if (this.state.edit) {
+        } /*else if (this.state.edit) {
             return (
                 <EditConsole saveHandler={this.saveHandler} cancelHandler={this.cancelHandler} username={this.state.username} offer={this.state.offer} />
             );
-        } else {
+        } */else {
             return (
                 <div />
             );
@@ -295,7 +295,8 @@ class OfferConsole extends Component {
                 <div className={styles.right}>
                     
                     {this.state.offers.map((offer) => (
-                        <Offer info={offer} editHandler={this.editHandler} key={offer.cuid} deleteHandler={this.deleteHandler} />
+                        <Offer info={offer} editHandler={this.editHandler} key={offer.cuid} deleteHandler={this.deleteHandler}
+                            saveHandler={this.saveHandler} cancelHandler={this.cancelHandler} username={this.state.username}/>
                     ))}
                 </div>
             </div>

@@ -5,11 +5,14 @@
     border-radius: 2px;
     width: 300px;
     display: inline-block;
+    padding: 10px;
+    margin: 10px;
+    margin-right: 0px;
 }
 
-@media (min-width: 800px) {
+@media (min-width: 800px) {/*
     .offer {
         padding: 10px;
         margin: 5px;
-    } 
+    } */
 }
