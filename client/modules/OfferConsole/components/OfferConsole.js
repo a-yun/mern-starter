@@ -43,6 +43,49 @@ const offerDummy = [
 },
 ];
 
+const cities = [
+{
+    name: "Austin",
+    cli: 78.12,
+    rent: 51.84,
+    cliRent: 65.18,
+    groceries: 81.79,
+    restaurant: 77.67,
+    purch: 122.65,
+    medianRent: 1140,
+},
+{
+    name: "New York",
+    cli: 100,
+    rent: 100,
+    cliRent: 100,
+    groceries: 100,
+    restaurant: 100,
+    purch: 100,
+    medianRent: 2090,
+},
+{
+    name: "San Francisco",
+    cli: 101.94,
+    rent: 119.63,
+    cliRent: 110.65,
+    groceries: 116.73,
+    restaurant: 93.57,
+    purch: 104.40,
+    medianRent: 2450,
+},
+{
+    name: "Seattle",
+    cli: 93.31,
+    rent: 65.46,
+    cliRent: 79.60,
+    groceries: 98.17,
+    restaurant: 86.72,
+    purch: 121.29,
+    medianRent: 1370,
+},
+];
+
 class OfferConsole extends Component {
 
     constructor(props) {
@@ -70,6 +113,56 @@ class OfferConsole extends Component {
 
         // update state
 
+    }
+
+    /* function to calculate cost for a given city */
+    calculateCost(offer) {
+        // cost of living source: https://www.numbeo.com/cost-of-living/region_rankings.jsp?title=2017-mid&region=019
+        let total = 0;
+        // get city
+        let city = undefined;
+        for (let idx = 0; idx < cities.length; idx++) {
+            if (offer.location == cities[idx].name) {
+                city = cities[idx];
+            }
+        }
+        // convert salary to weekly salary
+        let salary = offer.salary;
+        switch(salaryFormat) {
+            case "hourly" :
+                salary = salary * 40;
+                break;
+            case "weekly" :
+                break;
+            case "monthly" :
+                salary = salary / 4;
+                break;
+            case "biweekly" :
+                salary = salary / 2;
+        }
+        // convert salary to flat rate
+        salary = salary * duration;
+        // convert salary to NY money
+        salary = ((100 + (100 - city.cli)) / 100) * salary;
+        // think about housing
+        // housing source: https://www.apartmentlist.com/rentonomics/national-rent-data/
+        let rent = 0;
+        if (!offer.housingStipend) {
+            // based on median rent
+            rent = (city.medianRent / 4) * duration;
+            rent = ((100 + (100 - city.rent)) / 100) * rent;
+            // take housing stipend into account
+            let housingHelp = 0;
+            rent = rent - (((100 + (100 - city.rent)) / 100) * offer.housingStipend);
+        }
+        // think about meals
+        let meals = 0;
+        if (offer.meals > 0) {
+            // based on restaurant index and $15/meal
+            meals = ((100 + (100 - city.restaurant)) / 100) * offer.meals;
+        }
+        // subtract meal and housing cost from salary
+        return salary - rent - meals;
     }
 
     /* find offer in list of offers to be edited */
