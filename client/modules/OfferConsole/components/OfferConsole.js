@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
+import styles from './OfferConsole.css';
 import Offer from './Offer';
 
 const offerDummy = [
@@ -69,7 +70,7 @@ class OfferConsole extends Component {
 
     render() {
         return (
-            <div className="offer-console">
+            <div className={styles.offerConsole}>
                 {this.state.offers.map((offer) => (
                     <Offer info={offer} editHandler={this.editHandler} key={offer.cuid} />
                 ))}

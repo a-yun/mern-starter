@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import Button from './Button';
-
+import styles from './Offer.css'
 // offer has:
 // company name
 // salary the way the user gave it
@@ -23,7 +23,7 @@ class Offer extends Component {
 
     render() {
         return (
-            <div className="offer">
+            <div className={styles.offer}>
                 <div className="offer-title">{this.props.info.companyName}</div>
                 <div className="offer-field">Salary: {this.props.info.salaryFormat}</div>
                 <div className="offer-field">Duration: {this.props.info.duration}</div>

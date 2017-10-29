@@ -30,7 +30,7 @@ export class App extends Component {
 
   render() {
     return (
-      <div>
+      <div className={styles.back}>
         <div>
           <Header
             switchLanguage={lang => this.props.dispatch(switchLanguage(lang))}
@@ -40,7 +40,6 @@ export class App extends Component {
           <div className={styles.container}>
             {this.props.children}
           </div>
-          <Footer />
         </div>
       </div>
     );

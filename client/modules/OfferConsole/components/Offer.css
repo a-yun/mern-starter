@@ -1,0 +1,12 @@
+.offer {
+    color: white;
+    border: 1px solid white;
+    background: black;
+    border-radius: 2px;
+}
+@media (min-width: 800px) {
+    .offer {
+        padding: 10px;
+        margin: 5px;
+    } 
+}
