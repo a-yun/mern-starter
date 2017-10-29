@@ -61,6 +61,7 @@ class OfferConsole extends Component {
         this.getOffer = this.getOffer.bind(this);
         this.deleteHandler = this.deleteHandler.bind(this);
         this.deleteOffer = this.deleteOffer.bind(this);
+        this.cancelHandler = this.cancelHandler.bind(this);
     }
 
     componentDidMount() {
@@ -118,8 +119,8 @@ class OfferConsole extends Component {
         // set the state with this offer and set the flags
         this.setState({
             edit: true,
-            default: false,
             add: false,
+            default: false,
             offer,
         });
     }
@@ -128,9 +129,9 @@ class OfferConsole extends Component {
     addHandler() {
         // set the state to "adding offer" and set the flags
         this.setState({
-            default: false,
             add: true,
             edit: false,
+            default: false,
             offer: undefined,
         });
     }
@@ -145,9 +146,9 @@ class OfferConsole extends Component {
             offer,
         };
         this.setState({
-            default: true,
             add: false,
             edit: false,
+            default: true,
             offer: undefined,
         });
     }
@@ -159,24 +160,28 @@ class OfferConsole extends Component {
         this.deleteOffer(props);
     }
 
+    /* cancel button is clicked, calling this method to stop adding or editing without saving*/
+    cancelHandler() {
+        this.setState({
+            add: false,
+            edit: false,
+            default: true,
+            offer: undefined,
+        });
+    }
+
     pickPanel() {
         if (this.state.add) {
             return (
-                <EditConsole saveHandler={this.saveHandler} username={this.state.username} />
+                <EditConsole saveHandler={this.saveHandler} cancelHandler={this.cancelHandler} username={this.state.username} />
             )
         } else if (this.state.edit) {
             return (
-                <EditConsole saveHandler={this.saveHandler} username={this.state.username} offer={this.state.offer} />
+                <EditConsole saveHandler={this.saveHandler} cancelHandler={this.cancelHandler} username={this.state.username} offer={this.state.offer} />
             );
         } else {
             return (
-                <div className="offers">
-                    <Button text="Add Offer" handleClick={this.addHandler} />
-                    <Button text="Score" />
-                    {this.state.offers.map((offer) => (
-                        <Offer info={offer} editHandler={this.editHandler} key={offer.cuid} deleteHandler={this.deleteHandler} />
-                    ))}
-                </div>
+                <div />
             );
         }
     }
@@ -184,7 +189,16 @@ class OfferConsole extends Component {
     render() {
         return (
             <div className="offer-console">
-                {this.pickPanel()}
+                <div className="left">
+                    {this.pickPanel()}
+                </div>
+                <div className="right">
+                    <Button text="Add Offer" handleClick={this.addHandler} />
+                    <Button text="Score" />
+                    {this.state.offers.map((offer) => (
+                        <Offer info={offer} editHandler={this.editHandler} key={offer.cuid} deleteHandler={this.deleteHandler} />
+                    ))}
+                </div>
             </div>
         );
     }

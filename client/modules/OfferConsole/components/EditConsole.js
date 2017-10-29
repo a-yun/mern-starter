@@ -22,6 +22,19 @@ class EditConsole extends Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            companyName: nextProps.offer ? nextProps.offer.companyName : "",
+            salaryFormat: nextProps.offer ? nextProps.offer.salaryFormat : "hourly",
+            salary: nextProps.offer ? nextProps.offer.salary : "",
+            duration: nextProps.offer ? nextProps.offer.duration : "",
+            location: nextProps.offer ? nextProps.offer.location : "Austin",
+            corporateHousing: nextProps.offer ? nextProps.offer.corporateHousing : true,
+            housingStipend: nextProps.offer ? nextProps.offer.housingStipend : "",
+            meals: nextProps.offer ? nextProps.offer.meals : "",
+        });
+    }
+
     /* update parameters */
     handleChange(event) {
         let value = event.target.value;
@@ -85,7 +98,34 @@ class EditConsole extends Component {
                     const offer = this.state;
                     offer.cuid = this.props.offer ? this.props.offer.cuid : counter;
                     counter++;
+                    // send state to offer console
                     this.props.saveHandler(offer);
+                    // reset state
+                    this.setState({
+                        companyName:  "",
+                        salaryFormat: "hourly",
+                        salary: "",
+                        duration: "",
+                        location: "Austin",
+                        corporateHousing: true,
+                        housingStipend: "",
+                        meals: "",
+                    })
+                }} />
+                <Button text="Cancel" handleClick={() => {
+                    // send state to offer console
+                    this.props.cancelHandler();
+                    // reset state
+                    this.setState({
+                        companyName:  "",
+                        salaryFormat: "hourly",
+                        salary: "",
+                        duration: "",
+                        location: "Austin",
+                        corporateHousing: true,
+                        housingStipend: "",
+                        meals: "",
+                    })
                 }} />
             </div>
         );
