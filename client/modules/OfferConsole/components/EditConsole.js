@@ -50,50 +50,50 @@ class EditConsole extends Component {
     render() {
         return (
             <div className={styles.editConsole}>
-                <div className="title">
+                <div className={styles.title}>
                     Offer Details:
                 </div>
-                <div>
+                <div className={styles.data}>
                     Company Name:
-                    <input className="inputfield" title="companyName" value={this.state.companyName} onChange={this.handleChange}/>
+                    <input className={styles.input} title="companyName" value={this.state.companyName} onChange={this.handleChange}/>
                 </div>
-                <div>
+                <div className={styles.data}>
                     Salary Amount (dollars):
-                    <input className="inputfield" title="salary" value={this.state.salary} onChange={this.handleChange}     />
-                    <select className="inputfield" title="salaryFormat" defaultValue={this.state.salaryFormat} onChange={this.handleChange}>
+                    <input className={styles.input} title="salary" value={this.state.salary} onChange={this.handleChange}     />
+                    <select className={styles.input} title="salaryFormat" defaultValue={this.state.salaryFormat} onChange={this.handleChange}>
                         <option>Hourly</option>
                         <option>Weekly</option>
                         <option>Biweekly</option>
                         <option>Monthly</option>
                     </select>
                 </div>
-                <div>
+                <div className={styles.data}>
                     Duration (weeks):
-                    <input className="inputfield" title="duration" value={this.state.duration} onChange={this.handleChange}/>
+                    <input className={styles.input} title="duration" value={this.state.duration} onChange={this.handleChange}/>
                 </div>
-                <div>
+                <div className={styles.data}>
                     Location:
-                    <select className="inputfield" title="location" defaultValue={this.state.location} onChange={this.handleChange}>
+                    <select className={styles.input} title="location" defaultValue={this.state.location} onChange={this.handleChange}>
                         <option>Austin, Texas</option>
                         <option>San Francisco, California</option>
                         <option>Seattle, Washington</option>
                         <option>New York City, New York</option>
                     </select>
                 </div>
-                <div>
+                <div className={styles.data}>
                     Corporate Housing Offered:
-                    <select className="inputfield" title="corporateHousing" onChange={this.handleChange}>
+                    <select className={styles.input} title="corporateHousing" onChange={this.handleChange}>
                         <option selected={this.state.corporateHousing}>Yes</option>
                         <option selected={!this.state.corporateHousing}>No</option>
                     </select>
                 </div>
-                <div>
+                <div className={styles.data}>
                     Housing Stipend:
-                    <input className="inputfield" title="housingStipend" value={this.state.housingStipend} onChange={this.handleChange}/>
+                    <input className={styles.input} title="housingStipend" value={this.state.housingStipend} onChange={this.handleChange}/>
                 </div>
-                <div>
+                <div className={styles.data}>
                     Meals to Prepare (weekly):
-                    <input className="inputfield" title="meals" value={this.state.meals} onChange={this.handleChange}/>
+                    <input className={styles.input} title="meals" value={this.state.meals} onChange={this.handleChange}/>
                 </div>
                 <div>
                     <Button text="Save" handleClick={() => {

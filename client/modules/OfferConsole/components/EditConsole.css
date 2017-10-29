@@ -1,7 +1,32 @@
 .editConsole {
-    color: white;
-    background-color: #333333;
+    color: black;
+    background-color: #cccccc;
     border: 1px solid white;
     border-radius:2px;
     padding:5px;
+    width: 200px;
+    margin: 0 auto;
+}
+.title {
+    font-size: 18px;
+    font-weight: 500;
+    font-family: "Segoe UI";
+    text-align: left;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+.data {
+    font-size: 14px;
+    font-weight: 500;
+    font-family: "Segoe UI";
+    text-align: left;
+    margin-left: 10px;
+}
+.input {
+    font-size: 14px;
+    font-weight: 200;
+    
+    font-family: "Segoe UI";
+    margin: 0 auto;
+    margin-bottom: 10px;
 }

@@ -3,4 +3,9 @@
     height:20px;
     cursor: pointer;
 }
-button:focus {outline:0;}
+button:focus {
+    outline:0;
+}
+button:active {
+    filter: opacity(50%) drop-shadow(0px 0px 1px black);
+}

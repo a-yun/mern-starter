@@ -289,7 +289,7 @@ class OfferConsole extends Component {
                         intl={this.props.intl}
                         toggleAddPost={this.toggleAddPostSection}
                     />
-                    <Button text="Add Offer" handleClick={this.addHandler} />
+                    <Button text="+ Add Offer" handleClick={this.addHandler} /> <br></br> <br></br>
                     {this.pickPanel()}
                 </div>
                 <div className={styles.right}>

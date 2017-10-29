@@ -1,6 +1,6 @@
 .imageStyle {
-  width: 243 px;
-  height: 128 px;
+  width: 200px;
+  height: 105px;
   display: block;
   margin: 0 auto;
   margin-top: 20px;
@@ -9,7 +9,13 @@
 .labelStyle {
   color: white;
   font-family: "Segoe UI";
-  font-size: 16px;
+  font-size: 15px;
+  display: inline-block;
+  margin-top:10px;
+  margin-bottom: 10px;
+  font-weight: 100;
+  width: 200px;
+  text-align: left;
 }
 @media (max-width: 767px){
   
