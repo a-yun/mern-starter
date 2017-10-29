@@ -1,0 +1,14 @@
+.offerConsole {
+    background: #333333;
+
+}
+.left {
+float:left;
+width:25%;
+text-align: center;
+}
+.right {
+border-left: 1px solid white;    
+float:right;
+width: 75%;
+}
