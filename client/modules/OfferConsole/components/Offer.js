@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import Button from './Button';
+import ImgButton from './ImgButton';
 import styles from './Offer.css'
 // offer has:
 // company name
@@ -31,7 +32,7 @@ class Offer extends Component {
                 <div className="offer-field">Corporate Housing: {this.props.info.corporateHousing ? "yes" : "no"}</div>
                 <div className="offer-field">Housing Stipend: ${this.props.info.housingStipend}</div>
                 <div className="offer-field">Responsible for: {this.props.info.meals} meals per week</div>
-                <Button text="Edit" handleClick={() => {
+                <ImgButton class={styles.edit} text="Edit" handleClick={() => {
                     const cuid = this.props.info.cuid;
                     this.props.editHandler(cuid);
                 }} />

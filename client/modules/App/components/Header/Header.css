@@ -1,7 +1,9 @@
 .imageStyle {
   width: 243 px;
   height: 128 px;
-  margin: 10px;
+  display: block;
+  margin: 0 auto;
+  margin-top: 20px;
 }
 
 .labelStyle {
