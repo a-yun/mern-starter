@@ -6,7 +6,6 @@ export const API_URL = (typeof window === 'undefined' || process.env.NODE_ENV ==
   '/api';
 
 export default function callApi(props, method = 'get', body) {
-  console.log(props);
   return fetch(`${API_URL}/${props.endpoint}`, {
     headers: { 'content-type': 'application/json' },
     method: props.method,
