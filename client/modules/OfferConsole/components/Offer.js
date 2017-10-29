@@ -24,11 +24,11 @@ class Offer extends Component {
     render() {
         return (
             <div className={styles.offer}>
-                <div className="offer-title">Company Name: {this.props.info.companyName}</div>
-                <div className="offer-field">Salary: ${this.props.info.salary} per {this.props.info.salaryFormat}</div>
+                <div className="offer-title">Company: {this.props.info.companyName}</div>
+                <div className="offer-field">Salary: ${this.props.info.salary} {this.props.info.salaryFormat}</div>
                 <div className="offer-field">Duration: {this.props.info.duration} weeks</div>
                 <div className="offer-field">Location: {this.props.info.location}</div>
-                <div className="offer-field">Corporate Housing Offered: {this.props.info.corporateHousing ? "yes" : "no"}</div>
+                <div className="offer-field">Corporate Housing: {this.props.info.corporateHousing ? "yes" : "no"}</div>
                 <div className="offer-field">Housing Stipend: ${this.props.info.housingStipend}</div>
                 <div className="offer-field">Responsible for: {this.props.info.meals} meals per week</div>
                 <Button text="Edit" handleClick={() => {

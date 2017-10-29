@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
+import styles from './EditConsole.css'
 import Button from './Button';
 
 let counter = 0;
@@ -48,9 +49,9 @@ class EditConsole extends Component {
 
     render() {
         return (
-            <div className="editconsole">
+            <div className={styles.editConsole}>
                 <div className="title">
-                    {this.props.offer ? "Edit Offer" : "Add Offer"}
+                    Offer Details:
                 </div>
                 <label>
                     Company Name
@@ -60,7 +61,7 @@ class EditConsole extends Component {
                     Salary Amount (in dollars)
                     <input className="inputfield" title="salary" value={this.state.salary} onChange={this.handleChange}     />
                     <select className="inputfield" title="salaryFormat" defaultValue={this.state.salaryFormat} onChange={this.handleChange}>
-                        <option>hourly</option>
+                        <option>Hourly</option>
                         <option>weekly</option>
                         <option>biweekly</option>
                         <option>monthly</option>

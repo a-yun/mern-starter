@@ -1,3 +1,12 @@
 .offerConsole {
     background: #333333;
+
+}
+.left {
+float:left;
+width:49%;
+}
+.right {
+float:right;
+width: 49%;
 }

@@ -5,6 +5,7 @@ import styles from './OfferConsole.css';
 import Offer from './Offer';
 import EditConsole from './EditConsole';
 import Button from './Button';
+import Header from '../../App/components/Header/Header';
 
 const offerDummy = [
 {
@@ -189,12 +190,17 @@ class OfferConsole extends Component {
     render() {
         return (
             <div className="offer-console">
-                <div className="left">
+                <div className={styles.left}>
+                    <Header
+                        switchLanguage={lang => this.props.dispatch(switchLanguage(lang))}
+                        intl={this.props.intl}
+                        toggleAddPost={this.toggleAddPostSection}
+                    />
+                    <Button text="Add Offer" handleClick={this.addHandler} />
                     {this.pickPanel()}
                 </div>
-                <div className="right">
-                    <Button text="Add Offer" handleClick={this.addHandler} />
-                    <Button text="Score" />
+                <div className={styles.right}>
+                    
                     {this.state.offers.map((offer) => (
                         <Offer info={offer} editHandler={this.editHandler} key={offer.cuid} deleteHandler={this.deleteHandler} />
                     ))}
