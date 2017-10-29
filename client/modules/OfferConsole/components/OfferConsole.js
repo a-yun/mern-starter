@@ -95,9 +95,9 @@ class OfferConsole extends Component {
         // sort
         offers.sort((offer1, offer2) => {
             if (offer1.score > offer2.score) {
-                return 1;
-            } else if (offer1.score < offer2.score) {
                 return -1;
+            } else if (offer1.score < offer2.score) {
+                return 1;
             } else {
                 return 0;
             }
@@ -111,7 +111,6 @@ class OfferConsole extends Component {
         // cost of living source: https://www.numbeo.com/cost-of-living/region_rankings.jsp?title=2017-mid&region=019
         let total = 0;
         // get city
-        console.log(offer.location);
         let city = undefined;
         for (let idx = 0; idx < cities.length; idx++) {
             if (offer.location == cities[idx].name) {
@@ -141,7 +140,7 @@ class OfferConsole extends Component {
         let rent = 0;
         if (!offer.housingStipend) {
             // based on median rent
-            rent = (city.medianRent / 4) * duration;
+            rent = (city.medianRent / 4) * offer.duration;
             rent = ((100 + (100 - city.rent)) / 100) * rent;
             // take housing stipend into account
             let housingHelp = 0;
@@ -236,12 +235,12 @@ class OfferConsole extends Component {
         .then(() => (
             callApi({endpoint: `user/${this.state.username}`, method: "get", body: undefined})
             .then((response) => (
+                this.scoreOffers(response.offers),
                 this.setState({
                     add: false,
                     edit: false,
                     default: true,
                     offer: undefined,
-                    offers: response.offers,
                 })
             ))
         ));
@@ -257,12 +256,12 @@ class OfferConsole extends Component {
         .then(() => (
             callApi({endpoint: `user/${this.state.username}`, method: "get", body: undefined})
             .then((response) => (
+                this.scoreOffers(response.offers),
                 this.setState({
                     add: false,
                     edit: false,
                     default: true,
                     offer: undefined,
-                    offers: response.offers,
                 })
             ))
         ));
