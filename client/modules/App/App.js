@@ -37,6 +37,7 @@ export class App extends Component {
             intl={this.props.intl}
             toggleAddPost={this.toggleAddPostSection}
           />
+          
           <div className={styles.container}>
             {this.props.children}
           </div>

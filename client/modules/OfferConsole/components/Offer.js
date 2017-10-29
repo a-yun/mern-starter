@@ -24,7 +24,7 @@ class Offer extends Component {
     render() {
         return (
             <div className={styles.offer}>
-                <div className="offer-title">Offer from {this.props.info.companyName}</div>
+                <div className="offer-title">Company Name: {this.props.info.companyName}</div>
                 <div className="offer-field">Salary: ${this.props.info.salary} per {this.props.info.salaryFormat}</div>
                 <div className="offer-field">Duration: {this.props.info.duration} weeks</div>
                 <div className="offer-field">Location: {this.props.info.location}</div>
